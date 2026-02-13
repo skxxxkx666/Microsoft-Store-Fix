@@ -1,4 +1,4 @@
-# Microsoft Store Fix Tool (PS1)
+﻿# Microsoft Store Fix Tool (PS1)
 
 本项目提供一个基于官方 Windows Update 接口下载并安装 Microsoft Store 的 PowerShell 脚本，包含服务检测、残留清理、日志导出、下载模式选择等功能。  
 This project provides a PowerShell script that downloads and installs Microsoft Store via official Windows Update APIs, with service checks, residue cleanup, log export, and download mode selection.
@@ -9,7 +9,7 @@ This project provides a PowerShell script that downloads and installs Microsoft 
 - 残留目录检测与可选清理 / Residue detection and optional cleanup
 - 代理检测 / Proxy detection
 - 可选地区修复（US / CN / HK / TW / JP） / Optional region fix (US / CN / HK / TW / JP)
-- 下载模式选择：默认 / BITS / 最优 IP（带回退） / Download modes: default / BITS / best IP (fallback)
+- 下载模式选择：默认 / BITS / 最优节点测速 / Download modes: default / BITS / best node probe
 - 完整日志与错误导出 / Full logging and error export
 
 ## 运行要求 / Requirements
@@ -18,9 +18,23 @@ This project provides a PowerShell script that downloads and installs Microsoft 
 - 管理员权限 / Administrator privileges
 
 ## 快速开始 / Quick Start
+
+> ⚠️ **请勿直接双击或右键"使用 PowerShell 运行"**，否则会闪退。  
+> ⚠️ **Do NOT double-click or use "Run with PowerShell"** from the right-click menu — the window will close immediately.
+
+以 **管理员身份** 打开 PowerShell 终端，输入以下命令运行：  
+Open PowerShell **as Administrator** and run:
+
 ```powershell
+powershell -ExecutionPolicy Bypass -NoExit -File "C:\完整路径\MicrosoftStore_Fix_v1.3.1.ps1"
+```
+
+或者先 cd 到脚本所在目录再运行 / Or cd to the script directory first:
+
+```powershell
+cd "C:\完整路径"
 Set-ExecutionPolicy Bypass -Scope Process -Force
-.\MicrosoftStore_Fix_v1.3.ps1
+.\MicrosoftStore_Fix_v1.3.1.ps1
 ```
 
 ## 参数 / Arguments
@@ -33,8 +47,8 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 `%USERPROFILE%\Downloads\MSStore Install\Logs`
 
 ## 发布校验 / Release Hash
-- `MicrosoftStore_Fix_v1.3.ps1`  
-  SHA256: `B4590EA8BA6C8926B7A69DC93A19E05167FF03177A24A08E31EFC5D7D184C743`
+- `MicrosoftStore_Fix_v1.3.1.ps1`  
+  SHA256: `3E77AB169DF39095DE3E24D31BEBFCB755002E5A426478FD01FF489B1127F1D2`
 
 ## 免责声明 / Disclaimer
 本工具会修改系统服务状态、注册表与安装 Appx 包，请在了解风险后使用。  
