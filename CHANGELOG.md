@@ -1,5 +1,36 @@
 ﻿# Changelog
 
+## v1.4.0
+### 架构重构
+- 统一配置对象 `$script:Config`，消除全局变量散落
+- 统一输出函数 `Write-Status`（7 级别：OK/Warn/Error/Info/Fix/Skip/Check）
+- SOAP 构建器拆分为独立函数：`New-WuSoapEnvelope` / `New-WuSecurityHeader` / `New-DeviceAttributesPayload`
+- 通信流程函数化：`Request-AuthCookie` → `Request-PackageCatalog` → `Request-PackageUrls`
+- 包解析独立函数：`ConvertFrom-AppxPackageIdentity`
+- 下载流程函数化：`Save-PackageFiles` / `Start-FileDownloadWithProgress`
+- 安装流程函数化：`Install-PackageFiles`
+
+### 新功能
+- 注册表检测 + 自动修复（`Test-StoreHealth` + `Repair-StoreRegistry`）
+- Windows 11 自动识别（Build ≥ 22000 修正 ProductName）
+- 三重崩溃保护：`Start-Tool` try/catch → `Invoke-ToolEntryPoint` try/catch → 全局 `trap`
+- `Write-FatalError` 致命错误诊断输出
+- `Wait-ExitConfirmation` 退出前确认
+- `Initialize-ToolRuntime` 集中初始化
+- `Write-AdviceFromError` 错误建议引擎（10+ 常见错误模式）
+- Debug 模式保存所有 SOAP 请求/响应 XML
+
+### Bug 修复
+- 修复步骤4 URI 字符串插值错误（`$script:Config.SoapEndpoint` 在双引号中未正确展开）
+- 修复 Windows 11 被误识别为 Windows 10 的问题（注册表 ProductName 未修正）
+
+### 改进
+- SOAP XML 全部运行时动态生成，消除硬编码模板
+- `$script:WuProductClassIds` 扩展至完整产品分类集
+- 错误处理增加超时/403/500 专项识别
+- 日志系统增加时间戳与级别标记
+- 函数命名统一为 Verb-Noun 格式
+
 ## v1.3.1
 - 修复主菜单退出逻辑（`break` 仅退出 `switch`）
 - 修复高级选项作用域问题（`-noDownload/-noInstall` 开关即时生效）
